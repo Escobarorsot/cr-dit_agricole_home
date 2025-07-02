@@ -1,11 +1,14 @@
-# Utilise une image PHP avec Apache
+# Utilise PHP avec Apache
 FROM php:8.2-apache
 
-# Copie tous les fichiers du dossier dans /var/www/html (dossier web d’Apache)
-COPY . /var/www/html/
-
-# Active le module rewrite (utile si tu as .htaccess ou routes)
+# Active mod_rewrite
 RUN a2enmod rewrite
 
-# Port exposé
+# Copie tous les fichiers dans le dossier web du serveur
+COPY . /var/www/html/
+
+# Donne les bons droits d'accès
+RUN chown -R www-data:www-data /var/www/html
+
+# Expose le port
 EXPOSE 80
